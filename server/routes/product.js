@@ -23,7 +23,7 @@ router.post('/image',(req,res) => {
         if(err){
             return req.json({success:false, err})
         }
-        return res.json({success: true, filePath: res.req.file.path , fileName: res.req.file.filename })
+        return res.json({success: true, filePath: res.req.file.path , fileName: res.req.file.name })
     })
 
 })
