@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
-import {Typography, Button, Form, Input} from 'antd';
-
+import {Typography, Button, Form, Input, Select} from 'antd';
+import FileUpload from '../../utils/FileUpload'
 const {Title} = Typography;
 const {TextArea} = Input;
 
@@ -44,7 +44,7 @@ const continentChangeHandler = (event) =>{
 
         <Form>
             {/* {Dropzone} */}
-
+            <FileUpload/>
             <br/>
             <br/>
         <label>이름</label>
@@ -59,11 +59,11 @@ const continentChangeHandler = (event) =>{
         <Input type="number" onChange={priceChangeHandler} value={price}/>
         <br/>
         <br/>
-        <select onChange={continentChangeHandler} value={continent}>
+        <Select onChange={continentChangeHandler} value={continent}>
             {Continents.map(item => (
                 <option key={item.key} value={item.key}>{item.value}</option>
             ))}
-        </select>
+        </Select>
 
         <br/>
         <br/>
