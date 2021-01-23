@@ -34,7 +34,9 @@ const priceChangeHandler = (event) =>{
 const continentChangeHandler = (event) =>{
     setContinent(event.currentTarget.value)
 }
-
+const updateImages = (newImages) => {
+    setImages(newImages)
+}
     
     return (
         <div style={{maxWidth: '700px', margin: '2rem auto'}}>
@@ -44,7 +46,7 @@ const continentChangeHandler = (event) =>{
 
         <Form>
             {/* {Dropzone} */}
-            <FileUpload/>
+            <FileUpload refreshFunction = {updateImages}/>
             <br/>
             <br/>
         <label>이름</label>
