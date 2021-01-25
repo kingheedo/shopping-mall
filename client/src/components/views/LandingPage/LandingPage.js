@@ -7,9 +7,18 @@ import ImageSilder from '../../utils/ImageSilder'
 
 function LandingPage() {
     const [products, setProducts] = useState([])
+    const [skip, setSkip] = useState(0)
+    const [limit, setLimit] = useState(8)
+
+
     useEffect(() => {
 
-        axios.post('/api/product/products', )
+        let body = {
+            skip:skip,
+            limit:limit,
+
+        }
+        axios.post('/api/product/products', body)
         .then(response =>{
             if (response.data.success){
                 console.log(response.data)
@@ -19,7 +28,14 @@ function LandingPage() {
                 alert("상품들을 가져오는데 실패 했습니다.")
             }
         })
+
+
     }, [])
+
+    const loadMoreHandler = () => {
+
+    }
+
 
     const renderCards = products.map((product,index) => {
 
@@ -38,7 +54,7 @@ function LandingPage() {
         </Card>
         </Col>
     })
-    
+
     return (
         <div style={{width: '75%', margin: '3rem auto'}}>
             <div style={{textAlign:'center'}}>
@@ -58,7 +74,7 @@ function LandingPage() {
             
 
             <div style={{display: 'flex', justifyContent:'center'}}>
-                <button>더보기</button>
+                <button onClick={loadMoreHandler}>더보기</button>
             </div>
             
         </div>
