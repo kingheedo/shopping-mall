@@ -5,6 +5,7 @@ import {RocketOutlined} from '@ant-design/icons'
 import Meta from 'antd/lib/card/Meta'
 import ImageSlider from '../../utils/ImageSlider'
 import CheckBox from './Sections/CheckBox'
+import {continents} from './Sections/Datas'
 function LandingPage() {
     const [Products, setProducts] = useState([])
     const [Skip, setSkip] = useState(0)
@@ -77,7 +78,7 @@ function LandingPage() {
             {/* Filter */}
 
             {/* CheckBox */}
-            <CheckBox />
+            <CheckBox list={continents} />
             {/* RadioBox */}
 
             {/* Search */}
