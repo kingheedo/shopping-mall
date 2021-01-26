@@ -11,7 +11,10 @@ function LandingPage() {
     const [Skip, setSkip] = useState(0)
     const [Limit, setLimit] = useState(8)
     const [PostSize, setPostSize] = useState(0)
-
+    const [Filters, setFilters] = useState({
+            continents: [],
+            price: []
+        })
     useEffect(() => {
         let body = {
             skip:Skip,
@@ -20,7 +23,7 @@ function LandingPage() {
         getProducts(body)
     },[])
 
-    const getProducts =  (body) => {
+    const getProducts = (body) => {
          axios.post('/api/product/products', body)
                 .then(response =>{
                     if (response.data.success){
@@ -51,7 +54,7 @@ function LandingPage() {
 
 
     const renderCards = Products.map((product,index) => {
-
+        
         console.log('product', product)
         console.log('product.images', product.images)
 
@@ -69,8 +72,28 @@ function LandingPage() {
         </Card>
         </Col>
     })
-    const handleFilters = () =>{
-        
+
+    const showFilteredResults = (filters) =>{
+
+             let body = {
+                    skip: 0,
+                    limit:Limit,
+                    filters:filters
+                }
+
+        getProducts(body)
+        setSkip(0)
+
+
+    }
+
+    const handleFilters = (filters, category) =>{
+        const newFilters = {...Filters}
+        newFilters[category] = filters
+
+        showFilteredResults(newFilters)
+
+
     }
 
     return (
@@ -81,7 +104,7 @@ function LandingPage() {
             {/* Filter */}
 
             {/* CheckBox */}
-            <CheckBox list={continents} handleFilters={filter => handleFilters(filter, "continents")} />
+            <CheckBox list={continents} handleFilters={filters => handleFilters(filters, "continents")} />
             {/* RadioBox */}
 
             {/* Search */}
