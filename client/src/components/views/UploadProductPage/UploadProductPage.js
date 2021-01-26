@@ -18,7 +18,7 @@ function UploadProductPage(props) {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState(0)
-    const [continent, setContinent] = useState(1)
+    const [continents, setContinents] = useState(1)
     const [images, setImages] = useState([])
 
 
@@ -33,7 +33,7 @@ const priceChangeHandler = (event) =>{
     setPrice(event.currentTarget.value)
 }
 const continentChangeHandler = (event) =>{
-    setContinent(event.currentTarget.value)
+    setContinents(event.currentTarget.value)
 }
 const updateImages = (newImages) => {
     setImages(newImages)
@@ -42,7 +42,7 @@ const updateImages = (newImages) => {
 const submitHandler = (event) =>{
     event.preventDefault();
 
-    if(!title || !description || !price || !continent || !images){
+    if(!title || !description || !price || !continents || !images){
         return alert('모든 값을 넣어주셔야 합니다.')
     }
 
@@ -55,7 +55,7 @@ const submitHandler = (event) =>{
         description: description,
         price: price,
         images: images,
-        continents: continent
+        continents: continents
         
     }
     Axios.post("/api/product", body)
@@ -92,7 +92,7 @@ const submitHandler = (event) =>{
         <Input type="number" onChange={priceChangeHandler} value={price}/>
         <br/>
         <br/>
-        <select onChange={continentChangeHandler} value={continent}>
+        <select onChange={continentChangeHandler} value={continents}>
             {Continents.map(item => (
                 <option key={item.key} value={item.key}>{item.value}</option>
             ))}
