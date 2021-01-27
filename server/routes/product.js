@@ -47,7 +47,7 @@ router.post('/products',(req,res) => {
 
   let limit = req.body.limit ? parseInt(req.body.limit) : 20;
   let skip = req.body.skip ? parseInt(req.body.skip) : 0;
-
+  let term = req.body.searchTerm
   let findArgs = {};
   
   for(let key in req.body.filters) {
@@ -58,7 +58,7 @@ router.post('/products',(req,res) => {
       if(key === 'price'){
         findArgs[key] = {
           $gte: req.body.filters[key][0], //:$200 greater than equar 이것보다 크거나 같은
-          $lte: req.body.filters[key][1]  //:$ㅌㅌㅌㅌㅌㅌㅌㅌㅌㅌ249 less than equar 이것보다 작거나 같은
+          $lte: req.body.filters[key][1]  //:$249 less than equar 이것보다 작거나 같은
         }
       }else{
       findArgs[key] = req.body.filters[key];
@@ -70,6 +70,17 @@ router.post('/products',(req,res) => {
 
   console.log('findArgs', findArgs)
 
+  if(term){
+    Product.find(findArgs)
+    .find({$text:{$search:term}})
+  .populate('writer')
+  .skip(skip)
+  .limit(limit)
+  .exec((err, productsInfo) => {
+  if(err) return res.status(400).json({success: false, err})
+  return res.status(200).json({success: true, productsInfo,postSize: productsInfo.length})
+  })
+  }else{
   Product.find(findArgs)
   .populate('writer')
   .skip(skip)
@@ -78,6 +89,9 @@ router.post('/products',(req,res) => {
   if(err) return res.status(400).json({success: false, err})
   return res.status(200).json({success: true, productsInfo,postSize: productsInfo.length})
   })
+  }
+
+  
 
 })
 

@@ -7,6 +7,7 @@ import ImageSlider from '../../utils/ImageSlider'
 import CheckBox from './Sections/CheckBox'
 import {continents,price} from './Sections/Datas'
 import RadioBox from './Sections/RadioBox'
+import SearchFeature from './Sections/SearchFeature'
 
 function LandingPage() {
     const [Products, setProducts] = useState([])
@@ -17,6 +18,8 @@ function LandingPage() {
             continents: [],
             price: []
         })
+    const [SearchTerm, setSearchTerm] = useState("")
+
     useEffect(() => {
         let body = {
             skip:Skip,
@@ -117,6 +120,19 @@ function LandingPage() {
 
     }
 
+    const updateSearchTerm = (newSearchTerm) =>{
+
+        let body = {
+            skip:0,
+            limit:Limit,
+            filters: Filters,
+            searchTerm: newSearchTerm
+        }
+        setSkip(0)
+        setSearchTerm(newSearchTerm)
+        getProducts(body)
+    }
+
     return (
         <div style={{width: '75%', margin: '3rem auto'}}>
             <div style={{textAlign:'center'}}>
@@ -136,7 +152,12 @@ function LandingPage() {
 
 
             {/* Search */}
-            
+            <div style={{display:'flex', justifyContent:'flex-end', margin: '1rem auto'}}>
+                <SearchFeature
+                refreshFunction = {newSearchTerm => updateSearchTerm(newSearchTerm)}
+                />
+
+            </div>
             {/* Cards */}
 
             
