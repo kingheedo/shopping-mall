@@ -5,7 +5,9 @@ import {RocketOutlined} from '@ant-design/icons'
 import Meta from 'antd/lib/card/Meta'
 import ImageSlider from '../../utils/ImageSlider'
 import CheckBox from './Sections/CheckBox'
-import {continents} from './Sections/Datas'
+import {continents,price} from './Sections/Datas'
+import RadioBox from './Sections/RadioBox'
+
 function LandingPage() {
     const [Products, setProducts] = useState([])
     const [Skip, setSkip] = useState(0)
@@ -55,8 +57,8 @@ function LandingPage() {
 
     const renderCards = Products.map((product,index) => {
         
-        console.log('product', product)
-        console.log('product.images', product.images)
+        // console.log('product', product)
+        // console.log('product.images', product.images)
 
 
         return <Col lg={6} md={8} xs={24} key={index}>
@@ -87,12 +89,31 @@ function LandingPage() {
 
     }
 
+    const handlePrice = (value) =>{
+        const data = price;
+        let array = [];
+        for (let key in data){
+
+            if(data[key]._id === parseInt(value, 10)) {
+            array = data[key].array;
+            }
+        }
+        return array;
+    }
+
     const handleFilters = (filters, category) =>{
         const newFilters = {...Filters}
+
+        console.log("filters",filters)
+
         newFilters[category] = filters
 
+        if(category === "price"){
+            let priceValues = handlePrice(filters)
+            newFilters[category] = priceValues
+        }
         showFilteredResults(newFilters)
-
+        setFilters(newFilters)
 
     }
 
@@ -102,10 +123,17 @@ function LandingPage() {
                 <h2>Let's Travel Anywhere<RocketOutlined /> </h2>
             </div>
             {/* Filter */}
+            <Row gutter={[16,16]}>
+                <Col lg={12} xs={24} >
+                    {/* CheckBox */}
+                    <CheckBox list={continents} handleFilters={filters => handleFilters(filters, "continents")} />
+                </Col>
+                <Col lg={12} xs={24} >
+                    {/* RadioBox */}
+                    <RadioBox list={price} handleFilters={filters => handleFilters(filters, "price")}/>
+                </Col>
+            </Row>
 
-            {/* CheckBox */}
-            <CheckBox list={continents} handleFilters={filters => handleFilters(filters, "continents")} />
-            {/* RadioBox */}
 
             {/* Search */}
             

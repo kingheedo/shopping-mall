@@ -53,7 +53,18 @@ router.post('/products',(req,res) => {
   for(let key in req.body.filters) {
     if(req.body.filters[key].length > 0){
 
+      console.log('key', key)
+
+      if(key === 'price'){
+        findArgs[key] = {
+          $gte: req.body.filters[key][0], //:$200 greater than equar 이것보다 크거나 같은
+          $lte: req.body.filters[key][1]  //:$ㅌㅌㅌㅌㅌㅌㅌㅌㅌㅌ249 less than equar 이것보다 작거나 같은
+        }
+      }else{
       findArgs[key] = req.body.filters[key];
+
+      }
+
     }
   }
 
