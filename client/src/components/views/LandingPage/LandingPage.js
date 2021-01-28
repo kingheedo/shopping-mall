@@ -68,7 +68,7 @@ function LandingPage() {
         {/* <img style={{width: '100%', maxHeight:'150px'}} src={`http://localhost:5000/${product.images[0]}`}/> */}
         <Card 
 
-        cover ={<ImageSlider images = {product.images}/>}>
+        cover ={<a href={`/product/${product._id}`}><ImageSlider images = {product.images}/></a>}>
                 
             <Meta
                 title={product.title}

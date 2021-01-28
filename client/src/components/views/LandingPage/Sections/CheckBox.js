@@ -34,8 +34,8 @@ const renderCheckboxLists = ( ) => props.list && props.list.map((value, index) =
 
     return (
         <div>
-             <Collapse defaultActiveKey={['1']}>
-                <Panel header="This is panel header 1" key="1">
+             <Collapse defaultActiveKey={['0']}>
+                <Panel header="Continents" key="1">
 
                     {renderCheckboxLists()}
                 </Panel>
