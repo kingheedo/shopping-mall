@@ -8,7 +8,6 @@ function DetailProductPage(props) {
     const productId = props.match.params.productId
     const [Product, setProduct] = useState({})
     useEffect(() => {
-
         axios.get(`/api/product/product_by_id?id=${productId}&type=single`)
         .then(response => {
             if(response.data.success) {

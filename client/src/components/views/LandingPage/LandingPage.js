@@ -65,7 +65,6 @@ function LandingPage() {
 
 
         return <Col lg={6} md={8} xs={24} key={index}>
-        {/* <img style={{width: '100%', maxHeight:'150px'}} src={`http://localhost:5000/${product.images[0]}`}/> */}
         <Card 
 
         cover ={<a href={`/product/${product._id}`}><ImageSlider images = {product.images}/></a>}>
