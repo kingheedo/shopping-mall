@@ -4,6 +4,7 @@ import {useDispatch} from 'react-redux'
 import {getCartItems} from '../../../_actions/user_actions'
 import {removeCartItem} from '../../../_actions/user_actions'
 import UserCardBlock from './Sections/UserCardBlock'
+import Paypal from '../../utils/Paypal'
 function CartPage(props) {
     const [Total, setTotal] = useState(0)
     const [ShowTotal, setShowTotal] = useState(false)
@@ -63,8 +64,10 @@ function CartPage(props) {
         <br/>
         <Empty description={false}/>
         </>
-
         }
+        <Paypal/>
+
+
         </div>
 
     )
