@@ -54,7 +54,7 @@ export function addToCart(id){
     let body= {
         productId: id
     }
-    const request = axios.post(`${USER_SERVER}/addToCart`,body)
+    const request = axios.post(`${USER_SERVER}/addTo    Cart`,body)
     .then(response => response.data);
 
     return {
@@ -64,14 +64,21 @@ export function addToCart(id){
 }
 export function getCartItems(cartItems,userCart){
     
-    const request = axios.get(`/api/product/product__by_id?id=${cartItems}&type=array`,body)
-    .then(response =>
+    const request = axios.get(`/api/product/product_by_id?id=${cartItems}&type=array`)
+    .then(response =>{
         
             //CartItem등에 해당하는 정보들을 
             // Product Collection에서 가져온 후에 
             // Quantity 정보를 넣어준다.
-        
-        );
+        userCart.forEach(cartItem => {
+            response.data.product.forEach((productDetail, index) =>{
+                if(cartItem.id === productDetail._id){
+                    response.data.product[index].quantity = cartItem.quantity
+                }
+            })
+        })
+    return response.data;
+    })
 
     return {
         type: GET_CART_ITEMS,
