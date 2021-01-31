@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Empty} from 'antd'
 import {useDispatch} from 'react-redux'
-import {getCartItems} from '../../../_actions/user_actions'
-import {removeCartItem} from '../../../_actions/user_actions'
+import {getCartItems, removeCartItem ,onSuccessBuy} from '../../../_actions/user_actions'
 import UserCardBlock from './Sections/UserCardBlock'
 import Paypal from '../../utils/Paypal'
 function CartPage(props) {
@@ -46,6 +45,18 @@ function CartPage(props) {
             }
         })
     }
+    const transactionSuccess = (data) =>{
+
+        dispatch(onSuccessBuy({
+            paymentData : data,
+            cartDetail: props.user.cartDetail
+        }))
+        .then(response => {
+            if(response.payload.success){
+                setShowTotal(false)
+            }
+        })
+    }
 
     return (
         <div style={{width:'85%', margin: '3rem auto'}}>
@@ -67,7 +78,9 @@ function CartPage(props) {
         }
         {ShowTotal &&
         <Paypal
-            total={Total}/>
+            total={Total}
+            onSuccess={transactionSuccess}
+            />
         
         }
 
